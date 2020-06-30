@@ -1,4 +1,4 @@
-extern crate clean_architecture_example;
+extern crate clean_architecture_rs;
 
 fn main() {
 }
