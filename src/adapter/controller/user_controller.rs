@@ -1,14 +1,18 @@
 use crate::adapter::repository::user_dao::TestUserRepository;
 
-use crate::usecase::user_creation::UserCreation;
+use crate::usecase::user_creation::UserOperation;
 
-struct UserController {
-}
+use actix_web::{get, web, Responder};
 
-impl UserController {
-    fn render(&self) {
-        let user_creation =  UserCreation { ur: TestUserRepository {} };
-        user_creation.create();
+#[get("/users/{id}")]
+pub async fn show(info: web::Path<(i32)>) -> impl Responder {
+    let user_creation =  UserOperation { ur: TestUserRepository {} };
+
+    if let Some(user) = user_creation.create() {
+        format!("Hello {}", user.name)
+    } else {
+        format!("bye")
     }
-}
+    
 
+}
